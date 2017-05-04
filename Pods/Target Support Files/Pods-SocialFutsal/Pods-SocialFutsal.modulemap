@@ -1,0 +1,6 @@
+framework module Pods_SocialFutsal {
+  umbrella header "Pods-SocialFutsal-umbrella.h"
+
+  export *
+  module * { export * }
+}
