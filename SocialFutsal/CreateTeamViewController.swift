@@ -13,7 +13,18 @@ class CreateTeamViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var teamNameTextField: UITextField!
     @IBOutlet weak var locationTextField: UITextField!
-    @IBOutlet weak var playerListTableView: UITableView!
+    @IBOutlet weak var playerListTableView: UITableView!{
+        didSet{
+            playerListTableView.delegate = self
+            playerListTableView.dataSource = self
+            
+            playerListTableView.register(PlayersListTableViewCell.cellNib, forCellReuseIdentifier: PlayersListTableViewCell.cellIdentifier)
+        }
+    }
+    
+    var teamID : String = ""
+//    var playerss : [User] = []
+    var players = [User]()//["Ard","max","nick","kim","hey"]
 
     var ref: FIRDatabaseReference!
     
@@ -25,6 +36,7 @@ class CreateTeamViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(handleCreateTeam))
+        playerListTableView.reloadData()
         
         userUid = FIRAuth.auth()?.currentUser?.uid
         
@@ -36,15 +48,25 @@ class CreateTeamViewController: UIViewController {
         
         // Do any additional setup after loading the view.
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        playerListTableView.reloadData()
+    }
+    
+    
 
     @IBAction func changeLogoButtonTapped(_ sender: Any) {
         handleSelectorProfileImageView()
     }
     @IBAction func addButtonTapped(_ sender: Any) {
-        if let logInVC = storyboard?.instantiateViewController(withIdentifier: "UsersListViewController") {
-            navigationController?.pushViewController(logInVC, animated: true)
+        if let userListVC = storyboard?.instantiateViewController(withIdentifier: "UsersListViewController") as? UsersListViewController {
+            //userListVC.players = players
+            userListVC.delegate = self
+            navigationController?.pushViewController(userListVC, animated: true)
         }
     }
+    
+
     
     func handleCreateTeam(){
         guard let name = teamNameTextField.text, let location = locationTextField.text
@@ -59,7 +81,7 @@ class CreateTeamViewController: UIViewController {
                 let storageRef = FIRStorage.storage().reference().child("profile_images").child("\(imageName).jpg")
         
                 let teamRef = ref.childByAutoId()
-                let teamID = teamRef.key
+                self.teamID = teamRef.key
         
                 if let teamLogo = self.imageView.image, let uploadData = UIImageJPEGRepresentation(teamLogo, 0.1) {
                     storageRef.put(uploadData, metadata: nil, completion: { (metadata, error) in
@@ -69,12 +91,22 @@ class CreateTeamViewController: UIViewController {
                             return
                         }
                         if let teamLogoUrl = metadata?.downloadURL()?.absoluteString{
-                            let values = ["name" : name, "location" : location, "teamLogoUrl" : teamLogoUrl, "creatorID" : self.userUid]
-                            self.registerUserIntoDatabaseWithUID(teamUid: teamID, values: values as [String : AnyObject])
+                            //to get only the name of players
+                            let nameArray = self.players.map({ (player) -> String in
+                                player.name ?? ""
+                            })
+                            
+                            let values = ["name" : name, "location" : location, "teamLogoUrl" : teamLogoUrl, "creatorID" : self.userUid!, "teammates" : nameArray] as [String : Any]
+                            self.registerUserIntoDatabaseWithUID(teamUid: self.teamID, values: values as [String : AnyObject])
                         }
                     })
                 }
             dismiss(animated: true, completion: nil)
+        //go to team VC
+        if let teamProfileVC = storyboard?.instantiateViewController(withIdentifier: "TeamViewController") as? TeamViewController {
+            teamProfileVC.currentTeamID = self.teamID
+            navigationController?.pushViewController(teamProfileVC, animated: true)
+        }
             }
         
             func registerUserIntoDatabaseWithUID(teamUid : String, values: [String: Any]) {
@@ -88,52 +120,6 @@ class CreateTeamViewController: UIViewController {
                 })
         
     }
-    
-//    func listenToFirebase(){
-//        
-//        guard let name = teamNameTextField.text, let location = locationTextField.text
-//            else {
-//            return
-//        }
-//        if profileUserID == "" {
-//            profileUserID = (uid)!
-//        }
-//        
-//        let imageName = NSUUID().uuidString
-//        let storageRef = FIRStorage.storage().reference().child("profile_images").child("\(imageName).jpg")
-//        
-//        guard let teamUid = user?.uid else {
-//            return
-//        }
-//        
-//        if let teamLogo = self.imageView.image, let uploadData = UIImageJPEGRepresentation(teamLogo, 0.1) {
-//            storageRef.put(uploadData, metadata: nil, completion: { (metadata, error) in
-//                
-//                if error != nil {
-//                    print(error!)
-//                    return
-//                }
-//                if let teamLogoUrl = metadata?.downloadURL()?.absoluteString{
-//                    let values = ["name" : name, "location" : location, "teamLogoUrl" : teamLogoUrl, "username" : self.currentUser.name]
-//                    self.registerUserIntoDatabaseWithUID(teamUid: uid, values: values as [String : AnyObject])
-//                }
-//            })
-//        }
-//
-//    }
-//    
-//    func registerUserIntoDatabaseWithUID(teamUid : String, values: [String: Any]) {
-//        let teamReference = ref.child("teams").child(teamUid)
-//        teamReference.updateChildValues(values, withCompletionBlock: { (err, ref) in
-//            
-//            if err != nil {
-//                print(err!)
-//                return
-//            }
-//        })
-//
-//    }
-
 }
 
 extension CreateTeamViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -174,6 +160,36 @@ extension CreateTeamViewController: UIImagePickerControllerDelegate, UINavigatio
         dismiss(animated: true, completion: nil)
     }
     
+}
+
+extension CreateTeamViewController: UITableViewDelegate, UITableViewDataSource{
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.players.count
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: PlayersListTableViewCell.cellIdentifier) as? PlayersListTableViewCell
+            else { return UITableViewCell()}
+        
+        let player = players[indexPath.row]
+        cell.usernameLabel?.text = player.name
+        
+        if let profileimageUrl = player.profileImageUrl {
+            cell.profileImageView.loadImageUsingCacheWithUrlString(urlString: profileimageUrl)
+        }
+        return cell
+    }
+    
+}
+
+extension CreateTeamViewController: UserListDelegate {
+    func inviteUsers(_ players: [User]) {
+        self.players = players
+    }
 }
 
 

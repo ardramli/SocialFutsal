@@ -102,10 +102,10 @@
             </objects>
             <point key="canvasLocation" x="-95.200000000000003" y="138.98050974512745"/>
         </scene>
-        <!--Games-->
+        <!--Games View Controller-->
         <scene sceneID="Fo9-Fg-51U">
             <objects>
-                <viewController id="HNX-Ar-DKi" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GamesViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="HNX-Ar-DKi" customClass="GamesViewController" customModule="SocialFutsal" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="NG7-CN-YzN"/>
                         <viewControllerLayoutGuide type="bottom" id="Qba-kX-bgF"/>
@@ -113,15 +113,77 @@
                     <view key="view" contentMode="scaleToFill" id="EuW-qt-0kT">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="9Tk-Cn-V04">
+                                <rect key="frame" x="0.0" y="64" width="375" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Find Games"/>
+                                    <segment title="Organize a game"/>
+                                </segments>
+                            </segmentedControl>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5tc-t4-2Nm" userLabel="findGamesView">
+                                <rect key="frame" x="0.0" y="100" width="375" height="518"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Coming soon" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y27-tn-zX1">
+                                        <rect key="frame" x="137" y="273" width="101" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5FW-4v-JSW" userLabel="organizeGameView">
+                                <rect key="frame" x="0.0" y="100" width="375" height="518"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sPa-8x-FGs">
+                                        <rect key="frame" x="8" y="45" width="66" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nb9-Jt-I8Y">
+                                        <rect key="frame" x="8" y="91" width="36" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1PC-3X-fpr">
+                                        <rect key="frame" x="8" y="138" width="38" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Game Type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H4b-bm-wR2">
+                                        <rect key="frame" x="8" y="188" width="87" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jve-Xa-XvO">
+                                        <rect key="frame" x="117" y="371" width="141" height="37"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Create"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Games" image="field" id="w5Z-fZ-td1">
-                        <inset key="imageInsets" minX="23" minY="23" maxX="23" maxY="23"/>
-                    </tabBarItem>
+                    <navigationItem key="navigationItem" id="I0p-tS-seF"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q15-BD-8L3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-95" y="804"/>
+            <point key="canvasLocation" x="844" y="803.74812593703155"/>
         </scene>
         <!--Team View Controller-->
         <scene sceneID="CF2-g7-ztD">
@@ -709,6 +771,16 @@
                                     <constraint firstAttribute="width" constant="350" id="KV4-G6-34n"/>
                                     <constraint firstAttribute="height" constant="327" id="vfE-AX-eku"/>
                                 </constraints>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="7dh-Cs-0oP" customClass="PlayersListTableViewCell" customModule="SocialFutsal" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="350" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7dh-Cs-0oP" id="NYv-4I-bWb">
+                                            <rect key="frame" x="0.0" y="0.0" width="350" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Players" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fdo-fO-7L0">
                                 <rect key="frame" x="16" y="283" width="298" height="34"/>
@@ -886,7 +958,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="HNX-Ar-DKi" kind="relationship" relationship="viewControllers" id="6bV-5V-Ha5"/>
+                        <segue destination="f8z-dy-eDp" kind="relationship" relationship="viewControllers" id="6bV-5V-Ha5"/>
                         <segue destination="jgg-3x-9GU" kind="relationship" relationship="viewControllers" id="lun-IT-vjn"/>
                         <segue destination="k0F-mR-dCF" kind="relationship" relationship="viewControllers" id="8o4-5L-X9T"/>
                     </connections>
@@ -934,6 +1006,27 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KON-fV-dhz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-100" y="2202.5487256371816"/>
+        </scene>
+        <!--Games-->
+        <scene sceneID="3lJ-E2-470">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="f8z-dy-eDp" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Games" image="field" id="w5Z-fZ-td1">
+                        <inset key="imageInsets" minX="23" minY="23" maxX="23" maxY="23"/>
+                    </tabBarItem>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Bo0-Ve-HeU">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="HNX-Ar-DKi" kind="relationship" relationship="rootViewController" id="DxO-zY-qTl"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Rbt-tz-0gW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-95.200000000000003" y="803.74812593703155"/>
         </scene>
     </scenes>
     <resources>

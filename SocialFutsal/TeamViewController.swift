@@ -8,6 +8,7 @@
 
 import UIKit
 import Charts
+import Firebase
 
 class TeamViewController: UIViewController {
     @IBOutlet weak var playersListView: UIView!
@@ -17,24 +18,25 @@ class TeamViewController: UIViewController {
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var pieChartView: PieChartView!
     
+    var ref: FIRDatabaseReference!
+    var currentTeamID = ""
+    
+    var teamID : String?
+    var uid : String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"]
-//        let unitsSold = [20.0, 4.0, 6.0, 3.0, 12.0, 16.0]
-//        
-//        setChart(dataPoints: months, values: unitsSold)
         
         pieChartView.isHidden = true
         playersListView.isHidden = false
         
-        let month = ["Jan", "Feb" , "March"]
-        let amount = [123,421,661]
+        let stats = ["Games Played", "Wins" , "Losses"]
+        let amount = [100,80,20]
         
         
         var pcDataEntries = [PieChartDataEntry]()
-        for i in 0..<month.count {
-            let pcDataEntry = PieChartDataEntry(value: Double(amount[i]), label: month[i])
+        for i in 0..<stats.count {
+            let pcDataEntry = PieChartDataEntry(value: Double(amount[i]), label: stats[i])
             pcDataEntries.append(pcDataEntry)
         }
         let pcDataSet = PieChartDataSet(values: pcDataEntries, label: "Legend Information")
@@ -46,39 +48,16 @@ class TeamViewController: UIViewController {
         
         
         pieChartView.data = pcData
-        pieChartView.centerText = "ALallal"
-        pieChartView.chartDescription?.text = "Monthly Sale"
+        pieChartView.centerText = "Team Name"
+        pieChartView.chartDescription?.text = "Team Stats"
+        
+        ref = FIRDatabase.database().reference()
+        ref.child("teams").observe(.childAdded, with: { (snapshot) in
+            self.uid = snapshot.key
+        })
         
     }
     
-    
-//    func setChart(dataPoints: [String], values: [Double]) {
-//        
-//        var dataEntries: [ChartDataEntry] = []
-//        
-//        for i in 0..<dataPoints.count {
-////            let dataEntry = ChartDataEntry(x: Double(i), y: Double(i), data: values[i] as AnyObject?)
-//            let dataEntry = ChartDataEntry(x: Double(i), y: values[i], data : dataPoints[i] as? AnyObject)
-//            dataEntries.append(dataEntry)
-//        }
-//        
-//        let pieChartDataSet = PieChartDataSet(values: dataEntries, label: "Units Sold")
-//        let pieChartData = PieChartData(dataSets: [pieChartDataSet])
-//        pieChartView.data = pieChartData
-//        
-//        var colors: [UIColor] = []
-//        
-//        for i in 0..<dataPoints.count {
-//            let red = Double(arc4random_uniform(256))
-//            let green = Double(arc4random_uniform(256))
-//            let blue = Double(arc4random_uniform(256))
-//            
-//            let color = UIColor(red: CGFloat(red/255), green: CGFloat(green/255), blue: CGFloat(blue/255), alpha: 1)
-//            colors.append(color)
-//        }
-//        
-//        pieChartDataSet.colors = colors
-//    }
     @IBAction func indexChanged(_ sender: Any) {
         switch segmentedControl.selectedSegmentIndex {
         case 0:
@@ -91,6 +70,40 @@ class TeamViewController: UIViewController {
             break;
         }
     }
+    
+    func listenToFirebase(){
+        
+        if teamID == "" {
+            teamID = (uid)!
+        }
+        
+        ref.child("teams").child(teamID!).observe(.value, with: { (snapshot) in
+            print("Value : " , snapshot)
+            
+            let dictionary = snapshot.value as? [String: Any]
+            
+            let currentTeamProfile = Team(withAnId: (snapshot.key), aUserID: (dictionary?["creatorID"])! as! String, aTeamLogo: (dictionary?["teamLogoUrl"])! as! String, aTeamName: (dictionary?["name"])! as! String, aTeamLocation: (dictionary?["location"])! as! String, withPlayers: (dictionary?["teammates"])!as! [String])
+            
+            
+            // load screen name in nav bar
+            self.navigationItem.title = currentTeamProfile.teamName
+            
+            
+            // load the profile image
+            self.teamLogoImageView.loadImageUsingCacheWithUrlString(urlString: currentTeamProfile.teamLogoUrl!)
+            
+            
+            // load the user name
+            self.teamNameLabel.text = currentTeamProfile.teamName
+            
+            // load the user description
+            //self.descTextView.text = currentTeamProfile.desc
+            
+            //self.wholeView.isHidden = false
+            
+        })
+    }
+
     
     
 }

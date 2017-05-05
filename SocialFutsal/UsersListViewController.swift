@@ -8,6 +8,9 @@
 
 import UIKit
 import Firebase
+protocol UserListDelegate {
+    func inviteUsers (_ players: [User])
+}
 
 class UsersListViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!{
@@ -19,18 +22,39 @@ class UsersListViewController: UIViewController {
         }
     }
     var users = [User]()
-
+    var players = [User]() //["Ard","max","nick","kim","hey"]
+    var newTeamID : String = ""
+    var delegate : UserListDelegate? = nil
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(handleCancel))
-        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(handleDone))
         fetchUser()
     }
     
     func handleCancel() {
         navigationController?.popViewController(animated: true)
+        
     }
     
+    func handleDone() {
+        
+//        if delegate != nil {
+//            if let _players = players {
+//                delegate?.passUser(players)
+//            }
+//        }
+//        
+        
+//        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+//        guard let controller = storyboard .instantiateViewController(withIdentifier: "CreateTeamViewController") as?
+//            CreateTeamViewController else { return }
+//        controller.players = players
+        delegate?.inviteUsers(players)
+        navigationController?.popViewController(animated: true)
+    }
     func fetchUser() {
         FIRDatabase.database().reference().child("users").observe(.childAdded, with: { (snapshot) in
             
@@ -70,12 +94,42 @@ extension UsersListViewController: UITableViewDelegate, UITableViewDataSource{
         let user = users[indexPath.row]
         cell.usernameLabel?.text = user.name
         cell.locationLabel?.text = user.email
+        cell.inviteButton.tag = indexPath.row
+        cell.inviteButton.addTarget(self, action: #selector(inviteButtonTapped(sender:)), for: .touchUpInside)
         
         if let profileimageUrl = user.profileImageUrl {   
             cell.profileImageView.loadImageUsingCacheWithUrlString(urlString: profileimageUrl)
         }
-
-       
         return cell
     }
+    
+    
+    func inviteButtonTapped(sender: UIButton){
+        
+        let buttonRow = sender.tag
+        let invitedUser = users[buttonRow]
+        self.players.append(invitedUser)
+        
+//        self.players.append(invitedUser)
+//        
+//        print(self.players)
+    
+    }
+    
+    
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
