@@ -52,10 +52,8 @@ class TeamViewController: UIViewController {
         pieChartView.chartDescription?.text = "Team Stats"
         
         ref = FIRDatabase.database().reference()
-        ref.child("teams").observe(.childAdded, with: { (snapshot) in
-            self.uid = snapshot.key
-        })
         
+        listenToFirebase()
     }
     
     @IBAction func indexChanged(_ sender: Any) {
@@ -73,11 +71,8 @@ class TeamViewController: UIViewController {
     
     func listenToFirebase(){
         
-        if teamID == "" {
-            teamID = (uid)!
-        }
-        
-        ref.child("teams").child(teamID!).observe(.value, with: { (snapshot) in
+
+        ref.child("teams").child(currentTeamID).observe(.value, with: { (snapshot) in
             print("Value : " , snapshot)
             
             let dictionary = snapshot.value as? [String: Any]
