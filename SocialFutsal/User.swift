@@ -57,3 +57,10 @@ class User {
     
     
 }
+
+//class TeamPlayers {
+//    var name : String
+//    var player : [User] = []
+//    
+//    
+//}

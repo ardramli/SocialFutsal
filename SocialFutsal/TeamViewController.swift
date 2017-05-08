@@ -12,7 +12,14 @@ import Firebase
 
 class TeamViewController: UIViewController {
     @IBOutlet weak var playersListView: UIView!
-    @IBOutlet weak var playerListTableView: UITableView!
+    @IBOutlet weak var playerListTableView: UITableView!{
+        didSet{
+            playerListTableView.delegate = self
+            playerListTableView.dataSource = self
+            
+            playerListTableView.register(PlayersListTableViewCell.cellNib, forCellReuseIdentifier: PlayersListTableViewCell.cellIdentifier)
+        }
+    }
     @IBOutlet weak var teamLogoImageView: UIImageView!
     @IBOutlet weak var teamNameLabel: UILabel!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
@@ -23,9 +30,14 @@ class TeamViewController: UIViewController {
     
     var teamID : String?
     var uid : String?
-
+    var players = [User]()
+    var loadTeamMember = false
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //        navigationItem.leftBarButtonItem?.title = ""
+        //        navigationItem.leftBarButtonItem?.isEnabled = false
+        navigationItem.hidesBackButton = true
         
         pieChartView.isHidden = true
         playersListView.isHidden = false
@@ -54,6 +66,7 @@ class TeamViewController: UIViewController {
         ref = FIRDatabase.database().reference()
         
         listenToFirebase()
+        
     }
     
     @IBAction func indexChanged(_ sender: Any) {
@@ -71,34 +84,76 @@ class TeamViewController: UIViewController {
     
     func listenToFirebase(){
         
-
+        
         ref.child("teams").child(currentTeamID).observe(.value, with: { (snapshot) in
             print("Value : " , snapshot)
             
             let dictionary = snapshot.value as? [String: Any]
             
-            let currentTeamProfile = Team(withAnId: (snapshot.key), aUserID: (dictionary?["creatorID"])! as! String, aTeamLogo: (dictionary?["teamLogoUrl"])! as! String, aTeamName: (dictionary?["name"])! as! String, aTeamLocation: (dictionary?["location"])! as! String, withPlayers: (dictionary?["teammates"])!as! [String])
-            
+            let currentTeamProfile = Team(withAnId: (self.currentTeamID), aUserID: (dictionary?["creatorID"])! as! String, aTeamLogo: (dictionary?["teamLogoUrl"])! as! String, aTeamName: (dictionary?["name"])! as! String, aTeamLocation: (dictionary?["location"])! as! String, withPlayers: (dictionary?["teammates"])!as! [String])
             
             // load screen name in nav bar
             self.navigationItem.title = currentTeamProfile.teamName
             
-            
             // load the profile image
             self.teamLogoImageView.loadImageUsingCacheWithUrlString(urlString: currentTeamProfile.teamLogoUrl!)
-            
             
             // load the user name
             self.teamNameLabel.text = currentTeamProfile.teamName
             
-            // load the user description
-            //self.descTextView.text = currentTeamProfile.desc
-            
-            //self.wholeView.isHidden = false
+            //to load team member from myteamviewcontroller
+            if self.loadTeamMember {
+                self.players = []
+                for playerID in currentTeamProfile.players {
+                    self.observeTeammates(playerID: playerID)
+                }
+                
+            }
             
         })
     }
-
     
+    func observeTeammates(playerID : String){
+        ref = FIRDatabase.database().reference()
+        
+        
+        ref.child("users").child(playerID).observe(.value, with: { (snapshot2) in
+            if let dictionary = snapshot2.value as? [String: Any] {
+                let newPlayer = User(withAnId: playerID, anEmail: dictionary["email"]! as! String, aName: dictionary["name"]! as! String, aScreenName: dictionary["username"]! as! String, aDesc: dictionary["desc"]! as! String, aProfileImageURL: dictionary["profileImageUrl"]! as! String)
+                self.players.append(newPlayer)
+                
+                DispatchQueue.main.async {
+                    self.playerListTableView.reloadData()
+                }
+                
+            }
+        })
+        
+    }
     
 }
+
+extension TeamViewController: UITableViewDelegate, UITableViewDataSource{
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.players.count
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: PlayersListTableViewCell.cellIdentifier) as? PlayersListTableViewCell
+            else { return UITableViewCell()}
+        
+        let player = players[indexPath.row]
+        cell.usernameLabel?.text = player.name
+        
+        if let profileimageUrl = player.profileImageUrl {
+            cell.profileImageView.loadImageUsingCacheWithUrlString(urlString: profileimageUrl)
+        }
+        return cell
+    }
+    
+}
+

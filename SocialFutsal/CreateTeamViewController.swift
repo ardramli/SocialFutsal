@@ -73,6 +73,8 @@ class CreateTeamViewController: UIViewController {
                     else {
                     return
                 }
+        
+        
                 if profileUserID == "" {
                     profileUserID = (userUid)!
                 }
@@ -83,41 +85,52 @@ class CreateTeamViewController: UIViewController {
                 let teamRef = ref.childByAutoId()
                 self.teamID = teamRef.key
         
+        
+        // >>> start loading screen here
+        
+        
                 if let teamLogo = self.imageView.image, let uploadData = UIImageJPEGRepresentation(teamLogo, 0.1) {
                     storageRef.put(uploadData, metadata: nil, completion: { (metadata, error) in
         
                         if error != nil {
                             print(error!)
+                            
+                            // >> stop loading screen
+                            
                             return
                         }
+                        
                         if let teamLogoUrl = metadata?.downloadURL()?.absoluteString{
                             //to get only the name of players
                             let nameArray = self.players.map({ (player) -> String in
-                                player.name ?? ""
+                                player.id ?? ""
                             })
                             
                             let values = ["name" : name, "location" : location, "teamLogoUrl" : teamLogoUrl, "creatorID" : self.userUid!, "teammates" : nameArray] as [String : Any]
+                            
                             self.registerUserIntoDatabaseWithUID(teamUid: self.teamID, values: values as [String : AnyObject])
                         }
                     })
                 }
-            dismiss(animated: true, completion: nil)
-        //go to team VC
-        if let teamProfileVC = storyboard?.instantiateViewController(withIdentifier: "TeamViewController") as? TeamViewController {
-            teamProfileVC.currentTeamID = self.teamID
-            navigationController?.pushViewController(teamProfileVC, animated: true)
-        }
-            }
+    }
         
-            func registerUserIntoDatabaseWithUID(teamUid : String, values: [String: Any]) {
-                let teamReference = ref.child("teams").child(teamUid)
-                teamReference.updateChildValues(values, withCompletionBlock: { (err, ref) in
-                    
-                    if err != nil {
-                        print(err!)
-                        return
-                    }
-                })
+    func registerUserIntoDatabaseWithUID(teamUid : String, values: [String: Any]) {
+        let teamReference = ref.child("teams").child(teamUid)
+        teamReference.updateChildValues(values, withCompletionBlock: { (err, ref) in
+            
+            // >> stop loading screen
+            
+            if err != nil {
+                print(err!)
+                return
+            }
+            if let teamProfileVC = self.storyboard?.instantiateViewController(withIdentifier: "TeamViewController") as? TeamViewController {
+                teamProfileVC.currentTeamID = self.teamID
+                teamProfileVC.players = self.players
+                self.navigationController?.pushViewController(teamProfileVC, animated: true)
+            }
+
+        })
         
     }
 }

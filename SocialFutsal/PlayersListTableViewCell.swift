@@ -9,7 +9,12 @@
 import UIKit
 
 class PlayersListTableViewCell: UITableViewCell {
-    @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var profileImageView: UIImageView!{
+        didSet{
+            profileImageView.layer.cornerRadius = profileImageView.frame.width/2
+            profileImageView.layer.masksToBounds = true
+        }
+    }
     @IBOutlet weak var usernameLabel: UILabel!
     static let cellIdentifier = "PlayersListTableViewCell"
     static let cellNib = UINib(nibName: PlayersListTableViewCell.cellIdentifier, bundle: Bundle.main)
