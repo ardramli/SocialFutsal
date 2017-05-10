@@ -28,6 +28,15 @@
 		CE0BB9201EB827E700BF1445 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE0BB91E1EB827E700BF1445 /* LaunchScreen.storyboard */; };
 		CE0BB92A1EB82F8500BF1445 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0BB9291EB82F8500BF1445 /* SignUpViewController.swift */; };
 		CE0BB92C1EB8370F00BF1445 /* Warning.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0BB92B1EB8370F00BF1445 /* Warning.swift */; };
+		CE144CB61EC0B62900D8A36E /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE144CB51EC0B62900D8A36E /* LocationViewController.swift */; };
+		CE144CBB1EC0B7AC00D8A36E /* LocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE144CB91EC0B7AC00D8A36E /* LocationTableViewCell.swift */; };
+		CE144CBC1EC0B7AC00D8A36E /* LocationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE144CBA1EC0B7AC00D8A36E /* LocationTableViewCell.xib */; };
+		CE144CBE1EC0BDCD00D8A36E /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE144CBD1EC0BDCD00D8A36E /* Location.swift */; };
+		CE7DAD611EC189550030A4E7 /* DateTimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7DAD601EC189550030A4E7 /* DateTimePicker.swift */; };
+		CE7DAD631EC189880030A4E7 /* DateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7DAD621EC189880030A4E7 /* DateCollectionViewCell.swift */; };
+		CE7DAD651EC189C80030A4E7 /* StepCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7DAD641EC189C80030A4E7 /* StepCollectionViewFlowLayout.swift */; };
+		CE7DAD681EC1BB070030A4E7 /* HADropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7DAD671EC1BB070030A4E7 /* HADropDown.swift */; };
+		CE7DAD6A1EC1C4FA0030A4E7 /* Games.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7DAD691EC1C4FA0030A4E7 /* Games.swift */; };
 		CEB12BA71EBC60ED00ACDBEB /* GamesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB12BA61EBC60EC00ACDBEB /* GamesViewController.swift */; };
 		E5E3FEAEBA5BEB8E5A3CFEA1 /* Pods_SocialFutsal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3C0D5360970C0D9C985A7B /* Pods_SocialFutsal.framework */; };
 /* End PBXBuildFile section */
@@ -76,7 +85,17 @@
 		CE0BB9211EB827E700BF1445 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE0BB9291EB82F8500BF1445 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		CE0BB92B1EB8370F00BF1445 /* Warning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Warning.swift; sourceTree = "<group>"; };
+		CE144CB51EC0B62900D8A36E /* LocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
+		CE144CB91EC0B7AC00D8A36E /* LocationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationTableViewCell.swift; sourceTree = "<group>"; };
+		CE144CBA1EC0B7AC00D8A36E /* LocationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationTableViewCell.xib; sourceTree = "<group>"; };
+		CE144CBD1EC0BDCD00D8A36E /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		CE2B8E891EC17ACB00659DBD /* DateTimePicker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DateTimePicker.framework; path = "../../../Library/Developer/Xcode/DerivedData/SocialFutsal-gtshsulwdufrogfrmkqfysfurcwb/Build/Products/Debug-iphonesimulator/DateTimePicker/DateTimePicker.framework"; sourceTree = "<group>"; };
 		CE3C0D5360970C0D9C985A7B /* Pods_SocialFutsal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SocialFutsal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE7DAD601EC189550030A4E7 /* DateTimePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTimePicker.swift; sourceTree = "<group>"; };
+		CE7DAD621EC189880030A4E7 /* DateCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateCollectionViewCell.swift; sourceTree = "<group>"; };
+		CE7DAD641EC189C80030A4E7 /* StepCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
+		CE7DAD671EC1BB070030A4E7 /* HADropDown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HADropDown.swift; sourceTree = "<group>"; };
+		CE7DAD691EC1C4FA0030A4E7 /* Games.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Games.swift; sourceTree = "<group>"; };
 		CEB12BA61EBC60EC00ACDBEB /* GamesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GamesViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -95,6 +114,7 @@
 		2CC118BB1DC7100D4548BD65 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CE2B8E891EC17ACB00659DBD /* DateTimePicker.framework */,
 				CE3C0D5360970C0D9C985A7B /* Pods_SocialFutsal.framework */,
 			);
 			name = Frameworks;
@@ -104,6 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				CEB12BA61EBC60EC00ACDBEB /* GamesViewController.swift */,
+				CE144CB51EC0B62900D8A36E /* LocationViewController.swift */,
 				CE0166361EBAD5FB00A966BA /* MyTeamViewController.swift */,
 				CE0166341EBAD27100A966BA /* CreateTeamViewController.swift */,
 				CE0166381EBB002000A966BA /* UsersListViewController.swift */,
@@ -119,8 +140,10 @@
 		CE01661E1EB8B69F00A966BA /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				CE144CBD1EC0BDCD00D8A36E /* Location.swift */,
 				CE01661A1EB8658500A966BA /* User.swift */,
 				CE0166211EB9A37200A966BA /* Team.swift */,
+				CE7DAD691EC1C4FA0030A4E7 /* Games.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -128,6 +151,8 @@
 		CE0166251EB9A75100A966BA /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				CE144CB91EC0B7AC00D8A36E /* LocationTableViewCell.swift */,
+				CE144CBA1EC0B7AC00D8A36E /* LocationTableViewCell.xib */,
 				CE0166421EBB427D00A966BA /* PlayersListTableViewCell.swift */,
 				CE0166431EBB427D00A966BA /* PlayersListTableViewCell.xib */,
 				CE01663A1EBB00D000A966BA /* UsersListTableViewCell.swift */,
@@ -176,6 +201,7 @@
 			isa = PBXGroup;
 			children = (
 				CE0BB9151EB827E600BF1445 /* AppDelegate.swift */,
+				CE7DAD661EC189EF0030A4E7 /* Source */,
 				CE0166251EB9A75100A966BA /* Views */,
 				CE01661E1EB8B69F00A966BA /* Models */,
 				CE0166191EB8655900A966BA /* Controllers */,
@@ -188,6 +214,17 @@
 				CE0166281EB9C2B500A966BA /* Charts.xcodeproj */,
 			);
 			path = SocialFutsal;
+			sourceTree = "<group>";
+		};
+		CE7DAD661EC189EF0030A4E7 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				CE7DAD671EC1BB070030A4E7 /* HADropDown.swift */,
+				CE7DAD601EC189550030A4E7 /* DateTimePicker.swift */,
+				CE7DAD621EC189880030A4E7 /* DateCollectionViewCell.swift */,
+				CE7DAD641EC189C80030A4E7 /* StepCollectionViewFlowLayout.swift */,
+			);
+			name = Source;
 			sourceTree = "<group>";
 		};
 		FF3786348400372536CCF2E4 /* Pods */ = {
@@ -287,6 +324,7 @@
 			files = (
 				CE0166161EB852A900A966BA /* GoogleService-Info.plist in Resources */,
 				CE0BB9201EB827E700BF1445 /* LaunchScreen.storyboard in Resources */,
+				CE144CBC1EC0B7AC00D8A36E /* LocationTableViewCell.xib in Resources */,
 				CE0166451EBB427D00A966BA /* PlayersListTableViewCell.xib in Resources */,
 				CE0BB91D1EB827E700BF1445 /* Assets.xcassets in Resources */,
 				CE0BB91B1EB827E600BF1445 /* Main.storyboard in Resources */,
@@ -351,18 +389,26 @@
 			files = (
 				CEB12BA71EBC60ED00ACDBEB /* GamesViewController.swift in Sources */,
 				CE0166221EB9A37200A966BA /* Team.swift in Sources */,
+				CE7DAD611EC189550030A4E7 /* DateTimePicker.swift in Sources */,
+				CE7DAD6A1EC1C4FA0030A4E7 /* Games.swift in Sources */,
 				CE01661D1EB86BDF00A966BA /* EditProfileViewController.swift in Sources */,
 				CE0166201EB98DDC00A966BA /* TeamViewController.swift in Sources */,
+				CE144CB61EC0B62900D8A36E /* LocationViewController.swift in Sources */,
 				CE0166351EBAD27100A966BA /* CreateTeamViewController.swift in Sources */,
 				CE0166181EB8653D00A966BA /* ProfileViewController.swift in Sources */,
 				CE0166391EBB002000A966BA /* UsersListViewController.swift in Sources */,
 				CE01663C1EBB00D000A966BA /* UsersListTableViewCell.swift in Sources */,
+				CE7DAD651EC189C80030A4E7 /* StepCollectionViewFlowLayout.swift in Sources */,
 				CE0BB92A1EB82F8500BF1445 /* SignUpViewController.swift in Sources */,
 				CE0166441EBB427D00A966BA /* PlayersListTableViewCell.swift in Sources */,
 				CE0BB9181EB827E600BF1445 /* LogInViewController.swift in Sources */,
+				CE7DAD631EC189880030A4E7 /* DateCollectionViewCell.swift in Sources */,
+				CE144CBB1EC0B7AC00D8A36E /* LocationTableViewCell.swift in Sources */,
 				CE0BB92C1EB8370F00BF1445 /* Warning.swift in Sources */,
+				CE144CBE1EC0BDCD00D8A36E /* Location.swift in Sources */,
 				CE0166271EB9A81100A966BA /* TeamCollectionViewCell.swift in Sources */,
 				CE0166371EBAD5FB00A966BA /* MyTeamViewController.swift in Sources */,
+				CE7DAD681EC1BB070030A4E7 /* HADropDown.swift in Sources */,
 				CE0BB9161EB827E600BF1445 /* AppDelegate.swift in Sources */,
 				CE01661B1EB8658500A966BA /* User.swift in Sources */,
 			);

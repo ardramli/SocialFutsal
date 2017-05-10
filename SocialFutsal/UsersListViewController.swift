@@ -109,10 +109,6 @@ extension UsersListViewController: UITableViewDelegate, UITableViewDataSource{
         let buttonRow = sender.tag
         let invitedUser = users[buttonRow]
         self.players.append(invitedUser)
-        
-//        self.players.append(invitedUser)
-//        
-//        print(self.players)
     
     }
     

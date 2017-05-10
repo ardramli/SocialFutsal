@@ -23,13 +23,9 @@ class CreateTeamViewController: UIViewController {
     }
     
     var teamID : String = ""
-//    var playerss : [User] = []
-    var players = [User]()//["Ard","max","nick","kim","hey"]
-
+    var players = [User]()
     var ref: FIRDatabaseReference!
-    
     var currentUser = User.currentUser
-    
     var profileUserID = ""
     var userUid : String?
     

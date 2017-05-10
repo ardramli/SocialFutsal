@@ -12,4 +12,5 @@ target 'SocialFutsal' do
   pod 'Firebase/Auth'
   pod 'Charts', '~> 3.0.1'
   
+  
 end
