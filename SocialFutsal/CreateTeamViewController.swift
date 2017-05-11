@@ -38,8 +38,9 @@ class CreateTeamViewController: UIViewController {
         
         ref = FIRDatabase.database().reference()
         
-        imageView.layer.masksToBounds = false
-        imageView.layer.cornerRadius = imageView.frame.height/2
+        imageView.layer.masksToBounds = true
+        print(">>>>>>>>" , imageView.frame)
+        imageView.layer.cornerRadius = imageView.frame.height / 2
         imageView.clipsToBounds = true
         
         // Do any additional setup after loading the view.
@@ -156,7 +157,7 @@ extension CreateTeamViewController: UIImagePickerControllerDelegate, UINavigatio
         if let selectedImage = selectedImageFromPicker {
             
             imageView.image = selectedImage
-            imageView.layer.cornerRadius = 99
+            imageView.layer.cornerRadius = imageView.frame.height / 2.0
             imageView.layer.masksToBounds = true
             
         }

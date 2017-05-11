@@ -89,6 +89,7 @@ extension LocationViewController : UITableViewDelegate, UITableViewDataSource {
         
         cell.locationLabel.text = locations[indexPath.row].name
         cell.addressLabel.text = locations[indexPath.row].address
+        locations[indexPath.row].price = cell.priceLabel.text!
         
         return cell
     }

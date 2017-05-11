@@ -19,7 +19,7 @@ class Location{
     var text : String = ""
     var lat : Double = 0
     var long : Double = 0
-    var price : String = "RM100/hr"
+    var price : String = ""
     
     init() {
     }

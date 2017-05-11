@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import FirebaseDatabase
 import FirebaseStorage
+import Charts
 
 class ProfileViewController: UIViewController {
     @IBOutlet weak var profileImageView: UIImageView!
@@ -23,6 +24,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var followButton: UIButton!
     @IBOutlet weak var teamsView: UIView!
     @IBOutlet weak var statisticsView: UIView!
+    @IBOutlet weak var recordsView: UIView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var teamsCollectionView: UICollectionView!{
         didSet{
@@ -31,14 +33,22 @@ class ProfileViewController: UIViewController {
         }
     }
 
+    @IBOutlet weak var statisticsRadarChart: RadarChartView!
+    
     @IBAction func indexChanged(_ sender: Any) {
         switch segmentedControl.selectedSegmentIndex {
         case 0:
             teamsView.isHidden = true
             statisticsView.isHidden = false
+            recordsView.isHidden = true
         case 1:
             teamsView.isHidden = false
             statisticsView.isHidden = true
+            recordsView.isHidden = true
+        case 2:
+            teamsView.isHidden = true
+            statisticsView.isHidden = true
+            recordsView.isHidden = false
         default:
             break;
         }
@@ -55,12 +65,14 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
         uid = FIRAuth.auth()?.currentUser?.uid
         ref = FIRDatabase.database().reference()
         listenToFirebase()
         
         teamsView.isHidden = true
         statisticsView.isHidden = false
+        recordsView.isHidden = true
         
         // make the profile picture have a round radius
         profileImageView.layer.masksToBounds = false
@@ -86,6 +98,58 @@ class ProfileViewController: UIViewController {
 
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+    
+        super.viewDidAppear(animated)
+        
+        let stats = ["ATT", "DEF", "PACE", "SHOT", "STR", "HEA"]
+        let value = [92.0, 42.0, 80.0, 90.0, 78.0, 70.0]
+        setRadarChart(dataPoints: stats, values: value)
+    }
+    
+    func setRadarChart(dataPoints: [String], values: [Double]){
+        var rcDataEntries = [RadarChartDataEntry]()
+        for i in 0..<dataPoints.count {
+            let rcDataEntry = RadarChartDataEntry(value: Double(values[i]), data: dataPoints[i] as AnyObject?)
+            rcDataEntries.append(rcDataEntry)
+        }
+        
+        let rcDataSet = RadarChartDataSet(values: rcDataEntries, label: "bla bla bla")
+        rcDataSet.colors = [.red]
+        rcDataSet.valueColors = [.darkGray]
+        rcDataSet.fillColor = .brown
+        rcDataSet.label = "WHAT"
+        
+        let rcData = RadarChartData(dataSets: [rcDataSet])
+//        rcData.labels = ["ATT", "DEF", "PACE", "SHOT", "STR", "HEA"]
+//        rcData.setLabels(labels)
+        
+        statisticsRadarChart.data = rcData
+//        statisticsRadarChart.sizeToFit()
+        statisticsRadarChart.chartDescription?.text = "huhuh"
+        statisticsRadarChart.noDataText = "You need to provide data for the chart."
+        statisticsRadarChart.yAxis.axisMinimum = 0.0
+        statisticsRadarChart.yAxis.axisMaximum = 100.0
+        statisticsRadarChart.legend.enabled = false
+        statisticsRadarChart.yAxis.gridAntialiasEnabled = true
+        statisticsRadarChart.animate(xAxisDuration: 2.0)
+        statisticsRadarChart.animate(yAxisDuration: 2.0)
+        statisticsRadarChart.isUserInteractionEnabled = false
+        statisticsRadarChart.viewPortHandler.fitScreen()
+    }
+    
+    func handleLogout() {
+        
+        do {
+            try FIRAuth.auth()?.signOut()
+        } catch let logoutError {
+            print(logoutError)
+        }
+        
+        let currentStoryboard = UIStoryboard (name: "Main", bundle: Bundle.main)
+        let initController = currentStoryboard.instantiateViewController(withIdentifier: "LogInViewController")
+        present(initController, animated: true, completion: nil)
+    }
     
     func listenToFirebase(){
         
@@ -124,8 +188,16 @@ class ProfileViewController: UIViewController {
             // load the user description
             self.descTextView.text = currentProfileUser.desc
             
-            //self.wholeView.isHidden = false
+        })
+        
+        ref.child("teams").observe(.childAdded, with: { (snapshot) in
+            print("Value : " , snapshot)
             
+            if let team = snapshot.value as? [String: Any] {
+                let newTeam = Team(withAnId: snapshot.key, aUserID: "", aTeamLogo: team["teamLogoUrl"] as! String, aTeamName: "", aTeamLocation: "", withPlayers: [""])
+                 self.teamList.append(newTeam)
+            }
+            self.teamsCollectionView.reloadData()
         })
     }
     
@@ -183,13 +255,7 @@ extension ProfileViewController : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print(teamList[indexPath.row].teamLogoUrl)
         
-        //        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        //        guard let controller = storyboard .instantiateViewController(withIdentifier: "PhotoShowController") as?
-        //            PhotoShowController else { return }
-        //
-        //        controller.currentPhoto = photoList[indexPath.row]
-        //
-        //        navigationController?.pushViewController(controller, animated: true)
+        
     }
 }
 

@@ -32,6 +32,7 @@
 		CE144CBB1EC0B7AC00D8A36E /* LocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE144CB91EC0B7AC00D8A36E /* LocationTableViewCell.swift */; };
 		CE144CBC1EC0B7AC00D8A36E /* LocationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE144CBA1EC0B7AC00D8A36E /* LocationTableViewCell.xib */; };
 		CE144CBE1EC0BDCD00D8A36E /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE144CBD1EC0BDCD00D8A36E /* Location.swift */; };
+		CE3833F81EC36D0C002224F9 /* GamesCreatedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3833F71EC36D0C002224F9 /* GamesCreatedViewController.swift */; };
 		CE7DAD611EC189550030A4E7 /* DateTimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7DAD601EC189550030A4E7 /* DateTimePicker.swift */; };
 		CE7DAD631EC189880030A4E7 /* DateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7DAD621EC189880030A4E7 /* DateCollectionViewCell.swift */; };
 		CE7DAD651EC189C80030A4E7 /* StepCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7DAD641EC189C80030A4E7 /* StepCollectionViewFlowLayout.swift */; };
@@ -90,6 +91,7 @@
 		CE144CBA1EC0B7AC00D8A36E /* LocationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationTableViewCell.xib; sourceTree = "<group>"; };
 		CE144CBD1EC0BDCD00D8A36E /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		CE2B8E891EC17ACB00659DBD /* DateTimePicker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DateTimePicker.framework; path = "../../../Library/Developer/Xcode/DerivedData/SocialFutsal-gtshsulwdufrogfrmkqfysfurcwb/Build/Products/Debug-iphonesimulator/DateTimePicker/DateTimePicker.framework"; sourceTree = "<group>"; };
+		CE3833F71EC36D0C002224F9 /* GamesCreatedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GamesCreatedViewController.swift; sourceTree = "<group>"; };
 		CE3C0D5360970C0D9C985A7B /* Pods_SocialFutsal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SocialFutsal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE7DAD601EC189550030A4E7 /* DateTimePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTimePicker.swift; sourceTree = "<group>"; };
 		CE7DAD621EC189880030A4E7 /* DateCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 		CE0166191EB8655900A966BA /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				CE3833F71EC36D0C002224F9 /* GamesCreatedViewController.swift */,
 				CEB12BA61EBC60EC00ACDBEB /* GamesViewController.swift */,
 				CE144CB51EC0B62900D8A36E /* LocationViewController.swift */,
 				CE0166361EBAD5FB00A966BA /* MyTeamViewController.swift */,
@@ -407,6 +410,7 @@
 				CE0BB92C1EB8370F00BF1445 /* Warning.swift in Sources */,
 				CE144CBE1EC0BDCD00D8A36E /* Location.swift in Sources */,
 				CE0166271EB9A81100A966BA /* TeamCollectionViewCell.swift in Sources */,
+				CE3833F81EC36D0C002224F9 /* GamesCreatedViewController.swift in Sources */,
 				CE0166371EBAD5FB00A966BA /* MyTeamViewController.swift in Sources */,
 				CE7DAD681EC1BB070030A4E7 /* HADropDown.swift in Sources */,
 				CE0BB9161EB827E600BF1445 /* AppDelegate.swift in Sources */,

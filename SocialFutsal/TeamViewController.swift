@@ -16,7 +16,6 @@ class TeamViewController: UIViewController {
         didSet{
             playerListTableView.delegate = self
             playerListTableView.dataSource = self
-            
             playerListTableView.register(PlayersListTableViewCell.cellNib, forCellReuseIdentifier: PlayersListTableViewCell.cellIdentifier)
         }
     }
@@ -35,13 +34,18 @@ class TeamViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //        navigationItem.leftBarButtonItem?.title = ""
-        //        navigationItem.leftBarButtonItem?.isEnabled = false
         navigationItem.hidesBackButton = true
         
         pieChartView.isHidden = true
         playersListView.isHidden = false
         
+        ref = FIRDatabase.database().reference()
+        
+        listenToFirebase()
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         let stats = ["Games Played", "Wins" , "Losses"]
         let amount = [100,80,20]
         
@@ -62,11 +66,11 @@ class TeamViewController: UIViewController {
         pieChartView.data = pcData
         pieChartView.centerText = "Team Name"
         pieChartView.chartDescription?.text = "Team Stats"
+        pieChartView.animate(xAxisDuration: 2.0, yAxisDuration: 2.0)
         
-        ref = FIRDatabase.database().reference()
-        
-        listenToFirebase()
-        
+        teamLogoImageView.layer.masksToBounds = false
+        teamLogoImageView.layer.cornerRadius = teamLogoImageView.frame.height/2
+        teamLogoImageView.clipsToBounds = true
     }
     
     @IBAction func indexChanged(_ sender: Any) {
