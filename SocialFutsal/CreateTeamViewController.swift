@@ -33,7 +33,7 @@ class CreateTeamViewController: UIViewController {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(handleCreateTeam))
         playerListTableView.reloadData()
-        
+        playerListTableView.tableFooterView = UIView()
         userUid = FIRAuth.auth()?.currentUser?.uid
         
         ref = FIRDatabase.database().reference()

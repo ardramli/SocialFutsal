@@ -38,7 +38,7 @@ class TeamViewController: UIViewController {
         
         pieChartView.isHidden = true
         playersListView.isHidden = false
-        
+        playerListTableView.tableFooterView = UIView()
         ref = FIRDatabase.database().reference()
         
         listenToFirebase()

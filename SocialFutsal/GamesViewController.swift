@@ -70,7 +70,7 @@ class GamesViewController: UIViewController {
         let min = Date()
         let max = Date().addingTimeInterval(60 * 60 * 24 * 4)
         let picker = DateTimePicker.show(minimumDate: min, maximumDate: max)
-        picker.highlightColor = UIColor(red: 255.0/255.0, green: 138.0/255.0, blue: 138.0/255.0, alpha: 1)
+        picker.highlightColor = UIColor(red: 253.0/255.0, green: 203.0/255.0, blue: 3.0/255.0, alpha: 1)
         picker.darkColor = UIColor.darkGray
         picker.doneButtonTitle = "!! DONE DONE !!"
         picker.todayButtonTitle = "Today"
@@ -114,6 +114,11 @@ class GamesViewController: UIViewController {
         let values = ["hostID" : hostId, "location": location.name, "time": self.dateLabel.text ?? "", "duration": self.durationLabel.text, "gameType": self.gameType, "teams": "", "price" : self.selectedVenue.price] as [String : Any]
         
         self.registerUserIntoDatabaseWithUID(gameUid: self.gameID, values: values as [String : AnyObject])
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        guard let controller = storyboard .instantiateViewController(withIdentifier: "GamesCreatedViewController") as?
+            GamesCreatedViewController else { return }
+        navigationController?.pushViewController(controller, animated: true)
         
         
     }

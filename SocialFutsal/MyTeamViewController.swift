@@ -29,6 +29,7 @@ class MyTeamViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         observeTeams()
+        tableView.tableFooterView = UIView()
         // Do any additional setup after loading the view.
     }
     
